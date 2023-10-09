@@ -22,6 +22,38 @@ PBJS Debugger is a tool to debug pages with Prebid.js + Google Publisher Tag imp
 
 ![AdUnit Event Log](https://i.gyazo.com/805f6527da44e4190379d7cd6e496af6.png)
 
+# Usage
+
+### Snippets
+
+Open the Chrome Dev Tools.
+In the Sources tab, next to Content Scripts, click the » button and you can add Snippets.
+
+```js
+(async function () {
+  function importTag() {
+    const scriptEl = document.createElement("script");
+    scriptEl.src = "https://katsuo5.github.io/pbjs-debugger/index.min.js";
+    scriptEl.async = true;
+    document.getElementsByTagName("head")[0].appendChild(scriptEl);
+  }
+
+  async function waitForTimeout(milliseconds) {
+    return new Promise((r) => setTimeout(r, milliseconds));
+  }
+
+  googletag.openConsole();
+
+  await waitForTimeout(1000);
+
+  if (!window.pbjsDebugger) {
+    importTag();
+  } else {
+    window.pbjsDebugger.printSummary();
+  }
+})();
+```
+
 # Note
 
 # License

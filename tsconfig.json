@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "strict": true,
+    "outDir": "./build",
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "lib": ["es6", "dom", "es2017"],
+    "rootDirs": ["./src"],
+    "typeRoots": ["./@types", "./node_modules/@types"]
+  }
+}

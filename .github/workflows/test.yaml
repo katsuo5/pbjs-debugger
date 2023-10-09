@@ -1,0 +1,27 @@
+name: test
+
+on:
+  push:
+    paths:
+      - "src/**/*"
+      - "*.json"
+      - "yarn.lock"
+      - "*.js"
+      - ".github/workflows/*test.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.18.0"
+          registry-url: https://npm.pkg.github.com
+          cache: "yarn"
+      - run: yarn install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGE_READ }}
+      - run: yarn prettier:check
+      - run: yarn lint:check
+      - run: yarn build

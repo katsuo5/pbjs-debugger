@@ -13,3 +13,28 @@ export function getGooglePublisherTag(): GooglePublisherTag {
   const gpt: GooglePublisherTag = window.googletag;
   return gpt;
 }
+
+function gptLogRepogitory() {
+  let propKey: string | null = null;
+
+  function getPropKey(log: unknown) {
+    return Object.getOwnPropertyNames(log).filter(
+      (name) =>
+        !["timestamp", "message", "level"].includes(name) &&
+        // @ts-ignore
+        log[name].hasOwnProperty("getSlotElementId")
+    )[0];
+  }
+
+  return {
+    getSlotFromLog(log: unknown) {
+      if (!propKey) {
+        propKey = getPropKey(log);
+      }
+      // @ts-ignore
+      return log[propKey];
+    },
+  };
+}
+
+export const { getSlotFromLog } = gptLogRepogitory();

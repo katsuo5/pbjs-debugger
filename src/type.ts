@@ -73,18 +73,20 @@ export type GptGetEventLog = () => {
   };
 };
 
+export type GoogleTagLog = {
+  timestamp: Date;
+  message: {
+    messageId: number;
+  };
+  g: {
+    getSlotElementId: () => string;
+  };
+};
+
 export type GooglePublisherTag = {
   openConsole: () => void;
   pubads: () => googletag.PubAdsService;
   getEventLog: () => {
-    getEventsByLevel: (lev: number) => {
-      timestamp: Date;
-      message: {
-        messageId: number;
-      };
-      j: {
-        getSlotElementId: () => string;
-      };
-    }[];
+    getEventsByLevel: (lev: number) => GoogleTagLog[];
   };
 };

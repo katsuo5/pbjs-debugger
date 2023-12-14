@@ -1,6 +1,6 @@
 import { EVENT_NAME } from "./constant";
 import { SlotEventLog, SlotTable, WonEventLog } from "./type";
-import { getGooglePublisherTag, getPbjs } from "./utils";
+import { getGooglePublisherTag, getPbjs, getSlotFromLog } from "./utils";
 
 const LOG_PREFIX_STYLE =
   "color:white; background-color:rgb(99,44,166); padding:2px; border-radius:4px;";
@@ -86,7 +86,8 @@ function getSlotTable() {
         .getEventsByLevel(1)
         .filter(({ message }) => message.messageId === 3)
         .filter((log) => {
-          return log.j.getSlotElementId() === divId;
+          const slot = getSlotFromLog(log);
+          return slot.getSlotElementId() === divId;
         })
         .forEach(({ timestamp }) => {
           slotTable[divId].logs.push({

@@ -22,7 +22,7 @@ function gptLogRepogitory() {
       (name) =>
         !["timestamp", "message", "level"].includes(name) &&
         // @ts-ignore
-        log[name].hasOwnProperty("getSlotElementId")
+        Object.prototype.hasOwnProperty.call(log[name], "getSlotElementId")
     )[0];
   }
 
